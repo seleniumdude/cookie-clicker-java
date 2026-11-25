@@ -1,4 +1,4 @@
-@test
+
 Feature: Existing player - Happy path scenarios - buy and sell cookies and factories
 
   Background:

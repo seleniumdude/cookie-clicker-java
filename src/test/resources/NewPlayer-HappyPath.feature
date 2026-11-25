@@ -1,11 +1,11 @@
-@test
+
 Feature: New player - Happy path scenarios - buy and sell cookies and factories
 
   Background:
     Given I access the cookie clicker start screen
     When I enter the name hamza
     Then the new cookie clicker game is started
-
+  @test
     Scenario Outline: New player can buy cookies
       When the cookie clicker button receives "<NumberOfClicks>"
       Then the Cookies counter is updated accordingly
