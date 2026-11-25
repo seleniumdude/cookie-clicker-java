@@ -12,6 +12,7 @@ import org.openqa.selenium.ie.InternetExplorerOptions;
 import org.openqa.selenium.remote.CapabilityType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.time.Duration;
 
 import java.util.concurrent.TimeUnit;
 
@@ -39,10 +40,9 @@ public class WebDriverHandler {
         WebDriver driver;
         switch (browserName) {
             case "firefox":
-                System.setProperty(FirefoxDriver.SystemProperty.DRIVER_USE_MARIONETTE, "true");
                 FirefoxOptions options = new FirefoxOptions();
-                if (StringUtils.equalsIgnoreCase(env.valueOf("headless.mode"), "false")) {
-                    options.setHeadless(false);
+                if (StringUtils.equalsIgnoreCase(env.valueOf("headless.mode"), "true")) {
+                    options.addArguments("-headless");
                 }
                 WebDriverManager.firefoxdriver().setup();
                 driver = new FirefoxDriver(options);
@@ -53,7 +53,7 @@ public class WebDriverHandler {
                 InternetExplorerOptions internetExplorerOptions = new InternetExplorerOptions();
                 internetExplorerOptions.setCapability("EnableNativeEvents", false);
                 internetExplorerOptions.setCapability("ignoreZoomSetting", true);
-                internetExplorerOptions.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
+                internetExplorerOptions.setAcceptInsecureCerts(true);
                 internetExplorerOptions.setCapability(InternetExplorerDriver.IE_ENSURE_CLEAN_SESSION, true);
                 driver = new InternetExplorerDriver(internetExplorerOptions);
                 break;
@@ -62,7 +62,7 @@ public class WebDriverHandler {
                 driver = getChromeDriver();
         }
         driver.manage().deleteAllCookies();
-        driver.manage().timeouts().implicitlyWait(IMPLICIT_WAIT, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(IMPLICIT_WAIT));
         driver.manage().timeouts().pageLoadTimeout(PAGE_LOAD_TIMEOUT, TimeUnit.SECONDS);
         this.driver = driver;
     }
@@ -70,7 +70,7 @@ public class WebDriverHandler {
     private WebDriver getChromeDriver() {
         ChromeOptions options = new ChromeOptions();
         if (StringUtils.equalsIgnoreCase(env.valueOf("headless.mode"), "false")) {
-            options.setHeadless(false);
+            options.addArguments("--headless=new");
             options.addArguments("no-sandbox");
             options.addArguments("disable-dev-shm-usage");
         }

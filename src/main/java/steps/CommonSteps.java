@@ -1,7 +1,7 @@
 package steps;
 
 import config.EnvironmentHandler;
-import cucumber.api.java.en.Given;
+import io.cucumber.java.en.Given;
 import pages.CommonPage;
 import pages.Homepage;
 import pages.PageObjectManager;

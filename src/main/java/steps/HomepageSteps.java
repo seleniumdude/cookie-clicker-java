@@ -1,6 +1,6 @@
 package steps;
 
-import cucumber.api.java.en.When;
+import io.cucumber.java.en.When;
 import pages.CommonPage;
 import pages.Homepage;
 
@@ -15,7 +15,7 @@ String enteredPlayerName;
         this.commonPage = commonPage;
     }
 
-    @When("I enter the name (.*)")
+    @When("I enter the name {word}")
     public void iEnterName(String playerName) {
         enteredPlayerName = playerName;
         homepage.enterName(playerName);

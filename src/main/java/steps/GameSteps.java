@@ -1,7 +1,7 @@
 package steps;
 
-import cucumber.api.java.en.And;
-import cucumber.api.java.en.When;
+import io.cucumber.java.en.And;
+import io.cucumber.java.en.When;
 import pages.GamePage;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -23,7 +23,7 @@ public class GameSteps {
         assertThat(gamePage.getBodyText()).isEqualTo("Hello"+ " " + homepageSteps.enteredPlayerName);
     }
 
-    @When("the cookie clicker button receives \"([^\"]*)\"")
+    @When("the cookie clicker button receives \"{int}\"")
     public void iClickCookieClicker(int numberOfClicks) throws InterruptedException {
         cookiesCollected = numberOfClicks;
         for (int i = 0; i < numberOfClicks; i++){
